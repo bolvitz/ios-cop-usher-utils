@@ -35,18 +35,31 @@ struct HistoryScreen: View {
             } else {
                 eventList
             }
-        }
-        .navigationTitle("Head Count History")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    showingNewEvent = true
-                } label: {
-                    Label("New Event", systemImage: "plus")
+
+            // Floating Action Button (matching Android pattern)
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        showingNewEvent = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(width: 56, height: 56)
+                            .background(AppTheme.primary)
+                            .clipShape(Circle())
+                            .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2)
+                    }
+                    .padding(.trailing, AppTheme.spacingM)
+                    .padding(.bottom, AppTheme.spacingM)
                 }
             }
         }
+        .navigationTitle("Head Count History")
+        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showingNewEvent) {
             NewEventView(venue: venue)
         }
