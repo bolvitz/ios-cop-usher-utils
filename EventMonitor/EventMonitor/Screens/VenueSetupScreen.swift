@@ -151,8 +151,9 @@ struct VenueSetupScreen: View {
 
         // Validate code uniqueness
         let venueId = venue?.id ?? ""
+        let uppercasedCode = code.uppercased()
         let descriptor = FetchDescriptor<Venue>(
-            predicate: #Predicate { $0.code == code.uppercased() && $0.id != venueId }
+            predicate: #Predicate { $0.code == uppercasedCode && $0.id != venueId }
         )
         if let existingVenues = try? modelContext.fetch(descriptor), !existingVenues.isEmpty {
             errorMessage = "A venue with code '\(code.uppercased())' already exists"
