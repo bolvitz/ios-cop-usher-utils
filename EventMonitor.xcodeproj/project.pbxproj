@@ -40,6 +40,11 @@
 		A10000031 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000029 /* Result.swift */; };
 		A10000032 /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000030 /* Validators.swift */; };
 		A10000033 /* DomainValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000031 /* DomainValidators.swift */; };
+
+		518637FB6A5D424B8E5F83CF /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95360DA2AA74B979C4DA471 /* PDFGenerator.swift */; };
+		97186DCA357745148DAFA3CA /* PrintableReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F3D0D234B4226B8E56288 /* PrintableReportView.swift */; };
+
+		9AF4FFAD02BB4578B132DF4E /* ReportReceiptScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21C10DF901A41248CC321A3 /* ReportReceiptScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +83,11 @@
 		A30000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A30000002 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A30000003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+
+		E95360DA2AA74B979C4DA471 /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
+		8F5F3D0D234B4226B8E56288 /* PrintableReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintableReportView.swift; sourceTree = "<group>"; };
+
+		E21C10DF901A41248CC321A3 /* ReportReceiptScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReceiptScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +125,7 @@
 		A50000003 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A50000032 /* Utilities */,
 				A50000010 /* Common */,
 				A50000011 /* Data */,
 				A50000012 /* Domain */,
@@ -275,6 +286,7 @@
 			children = (
 				A20000021 /* CountingScreen.swift */,
 				A20000022 /* HistoryScreen.swift */,
+				E21C10DF901A41248CC321A3 /* ReportReceiptScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -304,6 +316,15 @@
 				A20000031 /* DomainValidators.swift */,
 			);
 			path = Validation;
+			sourceTree = "<group>";
+		};
+		A50000032 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E95360DA2AA74B979C4DA471 /* PDFGenerator.swift */,
+				8F5F3D0D234B4226B8E56288 /* PrintableReportView.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		A50000024 /* Common */ = {
@@ -417,7 +438,10 @@
 				A10000031 /* Result.swift in Sources */,
 				A10000032 /* Validators.swift in Sources */,
 				A10000033 /* DomainValidators.swift in Sources */,
-			);
+			
+				518637FB6A5D424B8E5F83CF /* PDFGenerator.swift in Sources */,
+				97186DCA357745148DAFA3CA /* PrintableReportView.swift in Sources */,
+				9AF4FFAD02BB4578B132DF4E /* ReportReceiptScreen.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */

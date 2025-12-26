@@ -12,6 +12,7 @@ import SwiftData
 struct CountingScreen: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: CountingViewModel
+    @State private var showReceipt = false
 
     init(event: Event) {
         _viewModel = StateObject(wrappedValue: CountingViewModel(event: event))
@@ -49,10 +50,12 @@ struct CountingScreen: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     Button {
-                        viewModel.shareReport()
+                        showReceipt = true
                     } label: {
-                        Label("Share Report", systemImage: "square.and.arrow.up")
+                        Label("View Report", systemImage: "doc.text")
                     }
+
+                    Divider()
 
                     Button(role: .destructive) {
                         viewModel.lockEvent()
@@ -63,6 +66,9 @@ struct CountingScreen: View {
                     Image(systemName: "ellipsis.circle")
                 }
             }
+        }
+        .sheet(isPresented: $showReceipt) {
+            ReportReceiptScreen(event: viewModel.event, venue: viewModel.event.venue)
         }
         .onAppear {
             viewModel.setModelContext(modelContext)
@@ -315,12 +321,6 @@ class CountingViewModel: ObservableObject {
         event.isLocked = true
         event.updatedAt = Date()
         save()
-    }
-
-    func shareReport() {
-        // TODO: Implement CSV export and sharing
-        // For now, just log
-        print("Sharing report for event: \(event.eventName)")
     }
 
     private func updateTotals() {
