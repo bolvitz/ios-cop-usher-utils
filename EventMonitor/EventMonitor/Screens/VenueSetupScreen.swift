@@ -135,8 +135,9 @@ struct VenueSetupScreen: View {
 
     private func saveVenue() {
         // Validate code uniqueness
+        let venueId = venue?.id ?? ""
         let descriptor = FetchDescriptor<Venue>(
-            predicate: #Predicate { $0.code == code && $0.id != (venue?.id ?? "") }
+            predicate: #Predicate { $0.code == code && $0.id != venueId }
         )
         if let existingVenues = try? modelContext.fetch(descriptor), !existingVenues.isEmpty {
             errorMessage = "A venue with code '\(code)' already exists"

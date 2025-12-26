@@ -141,7 +141,7 @@ struct LostAndFoundScreen: View {
 }
 
 struct LostItemCard: View {
-    @ObservedObject var item: LostItem
+    @Bindable var item: LostItem
 
     var body: some View {
         HStack(spacing: AppTheme.spacingM) {

@@ -14,7 +14,7 @@ final class EventType {
     @Attribute(.unique) var name: String
     var dayType: String  // e.g., "Sunday", "Wednesday"
     var time: String     // e.g., "9:00 AM"
-    var description: String
+    var eventDescription: String
     var displayOrder: Int
     var isActive: Bool
     var createdAt: Date
@@ -33,7 +33,7 @@ final class EventType {
         name: String,
         dayType: String = "",
         time: String = "",
-        description: String = "",
+        eventDescription: String = "",
         displayOrder: Int = 0,
         isActive: Bool = true,
         createdAt: Date = Date(),
@@ -45,7 +45,7 @@ final class EventType {
         self.name = name
         self.dayType = dayType
         self.time = time
-        self.description = description
+        self.eventDescription = eventDescription
         self.displayOrder = displayOrder
         self.isActive = isActive
         self.createdAt = createdAt

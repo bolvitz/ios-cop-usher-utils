@@ -122,7 +122,7 @@ struct SettingsScreen: View {
 }
 
 struct EventTypeRow: View {
-    @ObservedObject var eventType: EventType
+    @Bindable var eventType: EventType
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -222,7 +222,7 @@ struct EventTypeEditView: View {
         name = eventType.name
         dayType = eventType.dayType
         time = eventType.time
-        eventDescription = eventType.description
+        eventDescription = eventType.eventDescription
         isActive = eventType.isActive
     }
 
@@ -232,7 +232,7 @@ struct EventTypeEditView: View {
             eventType.name = name
             eventType.dayType = dayType
             eventType.time = time
-            eventType.description = eventDescription
+            eventType.eventDescription = eventDescription
             eventType.isActive = isActive
             eventType.updatedAt = Date()
         } else {
@@ -245,7 +245,7 @@ struct EventTypeEditView: View {
                 name: name,
                 dayType: dayType,
                 time: time,
-                description: eventDescription,
+                eventDescription: eventDescription,
                 displayOrder: maxOrder + 1,
                 isActive: isActive
             )

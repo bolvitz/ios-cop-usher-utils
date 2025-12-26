@@ -135,7 +135,7 @@ struct CountingScreen: View {
 }
 
 struct AreaCountCard: View {
-    @ObservedObject var areaCount: AreaCount
+    @Bindable var areaCount: AreaCount
     let onIncrement: () -> Void
     let onDecrement: () -> Void
 

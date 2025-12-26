@@ -178,7 +178,7 @@ struct IncidentListScreen: View {
 }
 
 struct IncidentCard: View {
-    @ObservedObject var incident: Incident
+    @Bindable var incident: Incident
 
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
