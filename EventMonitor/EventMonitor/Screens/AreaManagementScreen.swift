@@ -150,6 +150,8 @@ struct AreaEditView: View {
     @State private var capacity = ""
     @State private var color = "#2196F3"
     @State private var icon = "person.2.fill"
+    @State private var errorMessage = ""
+    @State private var showingError = false
 
     private var isEditing: Bool {
         area != nil
@@ -187,6 +189,14 @@ struct AreaEditView: View {
                             .foregroundColor(.gray)
                     }
                 }
+
+                if showingError {
+                    Section {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .font(AppTheme.bodySmall)
+                    }
+                }
             }
             .navigationTitle(isEditing ? "Edit Area" : "New Area")
             .navigationBarTitleDisplayMode(.inline)
@@ -220,7 +230,24 @@ struct AreaEditView: View {
     }
 
     private func saveArea() {
-        let capacityValue = Int(capacity) ?? 0
+        guard let capacityValue = Int(capacity) else {
+            errorMessage = "Capacity must be a valid number"
+            showingError = true
+            return
+        }
+
+        // Validate input
+        let validationResult = DomainValidators.validateAreaTemplateInput(
+            name: name,
+            capacity: capacityValue,
+            notes: nil
+        )
+
+        if case .failure(let error) = validationResult {
+            errorMessage = error.message
+            showingError = true
+            return
+        }
 
         if let area = area {
             // Update existing
@@ -244,8 +271,13 @@ struct AreaEditView: View {
             modelContext.insert(newArea)
         }
 
-        try? modelContext.save()
-        dismiss()
+        do {
+            try modelContext.save()
+            dismiss()
+        } catch {
+            errorMessage = "Failed to save area: \(error.localizedDescription)"
+            showingError = true
+        }
     }
 }
 

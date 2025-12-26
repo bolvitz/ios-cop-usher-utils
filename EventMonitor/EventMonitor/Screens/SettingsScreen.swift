@@ -172,6 +172,8 @@ struct EventTypeEditView: View {
     @State private var time = ""
     @State private var eventDescription = ""
     @State private var isActive = true
+    @State private var errorMessage = ""
+    @State private var showingError = false
 
     private var isEditing: Bool {
         eventType != nil
@@ -193,6 +195,14 @@ struct EventTypeEditView: View {
 
                 Section {
                     Toggle("Active", isOn: $isActive)
+                }
+
+                if showingError {
+                    Section {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .font(AppTheme.bodySmall)
+                    }
                 }
             }
             .navigationTitle(isEditing ? "Edit Event Type" : "New Event Type")
@@ -227,6 +237,31 @@ struct EventTypeEditView: View {
     }
 
     private func saveEventType() {
+        // Validate input
+        let validationResult = DomainValidators.validateEventTypeInput(
+            name: name,
+            dayType: dayType,
+            time: time,
+            description: eventDescription.isEmpty ? nil : eventDescription
+        )
+
+        if case .failure(let error) = validationResult {
+            errorMessage = error.message
+            showingError = true
+            return
+        }
+
+        // Check for duplicate name
+        let eventTypeId = eventType?.id ?? ""
+        let descriptor = FetchDescriptor<EventType>(
+            predicate: #Predicate { $0.name == name && $0.id != eventTypeId }
+        )
+        if let existingTypes = try? modelContext.fetch(descriptor), !existingTypes.isEmpty {
+            errorMessage = "An event type with name '\(name)' already exists"
+            showingError = true
+            return
+        }
+
         if let eventType = eventType {
             // Update existing
             eventType.name = name
@@ -252,8 +287,13 @@ struct EventTypeEditView: View {
             modelContext.insert(newEventType)
         }
 
-        try? modelContext.save()
-        dismiss()
+        do {
+            try modelContext.save()
+            dismiss()
+        } catch {
+            errorMessage = "Failed to save event type: \(error.localizedDescription)"
+            showingError = true
+        }
     }
 }
 
